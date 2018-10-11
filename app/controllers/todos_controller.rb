@@ -4,12 +4,23 @@ class TodosController < ApplicationController
   # GET /todos
   # GET /todos.json
   def index
-    @todos = Todo.all
+    @todos = current_user.todos
   end
 
   # GET /todos/1
   # GET /todos/1.json
   def show
+    @todo = Todo.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = TodosPdf.new @todo
+        send_data pdf.render,
+                  type: 'application/pdf',
+                  disposition: 'inline'
+      end
+      format.csv { send_data @todo.tasks.to_csv }
+    end
   end
 
   # GET /todos/new
@@ -25,7 +36,7 @@ class TodosController < ApplicationController
   # POST /todos.json
   def create
     @todo = Todo.new(todo_params)
-
+    @todo.user = current_user
     respond_to do |format|
       if @todo.save
         format.html { redirect_to @todo, notice: 'Todo was successfully created.' }
