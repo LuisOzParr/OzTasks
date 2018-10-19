@@ -5,8 +5,25 @@
 </head>
 <body>
 <h1>Hi <%= @user.name %></h1>
-<p>
-  Sample mail sent using smtp.
-</p>
+<% @user.todos.each do |todo| %>
+  <H2><%= todo.title %></H2>
+  <h3><%= todo.description %></h3>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% todo.tasks do |task| %>
+        <tr>
+          <td><%= task.title %></td>
+          <td><%= task.description %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
 </body>
 </html>

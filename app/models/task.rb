@@ -1,4 +1,5 @@
 class Task < ApplicationRecord
+  validates :title, presence: true
   before_create :start_status
   ## Todo validate if todo_id belongs to tu current user
 

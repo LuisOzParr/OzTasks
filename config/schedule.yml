@@ -1,0 +1,4 @@
+send_emal:
+  cron: "* * */7 * *"
+  class: "WeeklyEmail"
+  queue: default
