@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_task, only: [:show, :edit, :update, :destroy, :done]
   before_action :require_permission
   # GET /tasks
   # GET /tasks.json
@@ -61,6 +61,14 @@ class TasksController < ApplicationController
     end
   end
 
+  def done
+    @task.status = true
+    @task.save
+    respond_to do |format|
+      format.html { redirect_to :controller => 'todos', :action => 'index', notice: 'Task was successfully done.'}
+    end
+  end
+
   private
 
   def require_permission
@@ -68,7 +76,7 @@ class TasksController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_task
-      @task = Task.find(params[:id])
+      @task = Task.find(params[:id] || params[:task_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

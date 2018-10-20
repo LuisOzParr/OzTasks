@@ -4,9 +4,9 @@
 
 <div class="row">
   <% @todos.each do |todo| %>
-    <div class="col s4">
+    <div class="col s12 m12 l4">
 
-      <div class="card">
+      <div class="card hoverable">
         <div class="card-content ">
           <span class="card-title"><%= todo.title %></span>
 
@@ -21,11 +21,22 @@
 
             <tbody>
             <% todo.tasks.each do |task| %>
-              <tr>
-                <td><%= task.title %></td>
-                <td><%= link_to "Edit",  edit_task_path(task)%></td>
-                <td><%= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-              </tr>
+
+              <% unless task.status %>
+                <tr>
+                  <td><%= task.title %></td>
+                  <td><%= link_to "Edit",  edit_task_path(task)%></td>
+                  <td><%= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                  <td><%= link_to "Done", task_done_path(task.id), method: :patch %></td>
+                </tr>
+              <% else %>
+                <tr>
+                  <td style="text-decoration:line-through"><%= task.title %></td>
+                  <td>Edit</td>
+                  <td>Delete</td>
+                  <td>Done</td>
+                </tr>
+              <% end %>
             <% end %>
             </tbody>
           </table>

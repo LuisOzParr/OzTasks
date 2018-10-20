@@ -20,10 +20,17 @@
 
   <body>
   <%= render "partials/navigation" %>
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
+
   <section class="conteiner padding" style="padding-left: 3em; padding-right: 3em">
     <%= yield %>
   </section>
+  <script type="text/javascript" >
+      <% unless alert.nil? %>
+        M.toast({html: '<%= alert %>', displayLength:10000});
+      <% end %>
+      <% unless notice.nil? %>
+        M.toast({html: '<%= notice %>', displayLength:10000});
+      <% end %>
+  </script>
   </body>
 </html>

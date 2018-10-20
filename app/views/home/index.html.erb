@@ -1,16 +1,15 @@
-<h1>Hola mundo</h1>
-<% @users.each do |user|  %>
-  <%= user.name %>
-<% end %>
-
-<table>
-  <tbody>
-    <% @users.each do |user|   %>
-      <tr>
-        <td><%= user.name %></td>
-        <td><%= user.email %></td>
-        <td><%= image_tag(user.avatar) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="col s12 m6">
+  <div class="card horizontal">
+    <div class="card-stacked">
+      <div class="card-content">
+        <h3>Welcome to OzTasks App </h3>
+        <p>This app provide you a wonderful tool that help you to organize your activities over week. You can create "Todo" list and the app send emails weekly with your todo lists</p>
+        <p>if you want you can export your list in PDF or CSV</p>
+      </div>
+      <div class="card-action">
+        <%= link_to "Login", user_session_path %>
+        <%= link_to "Register", new_user_registration_path %>
+      </div>
+    </div>
+  </div>
+</div>
